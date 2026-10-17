@@ -1,13 +1,20 @@
 'use client';
 import {useState} from 'react';
-import {ArrowUpRight,UserRoundPen,Wallet,FileText,CreditCard,Landmark,ShieldQuestion,ChevronLeft,X,ShieldCheck} from 'lucide-react';
+import {Gauge,PenSquare,Globe2,FileText,CreditCard,ContactRound,LockKeyhole,ArrowRight,X} from 'lucide-react';
 const services=[
-{title:'رفع حدود المعاملات',desc:'استعرض خيارات الحدود اليومية للمعاملات.',icon:ArrowUpRight},
-{title:'تحديث معلومات الحساب',desc:'تعرف على خطوات تحديث المعلومات الرسمية.',icon:UserRoundPen},
-{title:'خدمات العملات',desc:'اطلع على المعلومات المتعلقة بخدمات العملات.',icon:Wallet},
-{title:'كشوف الحساب',desc:'إرشادات الحصول على كشوف حساباتك.',icon:FileText},
-{title:'البطاقات الرقمية',desc:'تعرف على مزايا البطاقات الرقمية.',icon:CreditCard},
-{title:'أنواع الحسابات',desc:'اكتشف الخيارات والخدمات المتاحة.',icon:Landmark},
-{title:'إرشادات الأمان',desc:'نصائح لحماية معلومات حسابك.',icon:ShieldQuestion},
+ {title:'رفع سقف العمليات اليومية',desc:'استعراض خيارات الحدود اليومية للعمليات.',icon:Gauge},
+ {title:'تحديث بياناتك',desc:'معلومات وإرشادات تحديث الملف الشخصي.',icon:PenSquare},
+ {title:'خدمات العملات الأجنبية',desc:'معلومات حول خدمات العملات الأجنبية.',icon:Globe2},
+ {title:'كشف الحساب',desc:'إرشادات طلب كشف حساب مفصل.',icon:FileText},
+ {title:'بطاقة افتراضية',desc:'التعرف على استخدام البطاقات الافتراضية.',icon:CreditCard},
+ {title:'أنواع الحسابات',desc:'مقارنة خصائص أنواع الحسابات.',icon:ContactRound},
+ {title:'إدارة أسئلة الأمان',desc:'إرشادات عامة لحماية حسابك.',icon:LockKeyhole},
 ];
-export default function Home(){const [selected,setSelected]=useState(null);return <main className="shell"><header className="header"><div className="brandmark">ب</div><div className="brandtext"><strong>بوابة الخدمات</strong><small>Digital Services Portal</small></div></header><section className="hero"><div className="heroicon"><ShieldCheck size={34}/></div><span className="eyebrow">خدمات رقمية بسهولة وأمان</span><h1>مرحباً بك في بوابة الخدمات</h1><p>اختر الخدمة التي تريد التعرف عليها من الخيارات التالية</p></section><section className="services"><div className="sectiontop"><h2>الخدمات المتاحة</h2><span>{services.length} خدمات</span></div><div className="cards">{services.map((s,i)=>{const Icon=s.icon;return <button type="button" className="service" key={s.title} onClick={()=>setSelected(i)}><span className="iconbox"><Icon size={25} strokeWidth={1.8}/></span><span className="copy"><strong>{s.title}</strong><small>{s.desc}</small></span><ChevronLeft className="chev" size={20}/></button>})}</div></section><footer><span>© {new Date().getFullYear()} بوابة الخدمات الرقمية</span><span>واجهة تجريبية مستقلة — غير تابعة لأي بنك</span><a href="tel:+23585550935" dir="ltr">+235 85550935</a></footer>{selected!==null&&<div className="overlay" onClick={()=>setSelected(null)}><div className="modal" role="dialog" aria-modal="true" onClick={e=>e.stopPropagation()}><button className="close" aria-label="إغلاق" onClick={()=>setSelected(null)}><X/></button><div className="modalicon">{(()=>{const Icon=services[selected].icon;return <Icon size={30}/>})()}</div><h3>{services[selected].title}</h3><p>{services[selected].desc}</p><p className="fine">هذه واجهة عرض تجريبية فقط. لا تُدخل أي بيانات بنكية أو كلمات مرور هنا.</p><button className="ok" onClick={()=>setSelected(null)}>حسناً</button></div></div>}</main>}
+export default function Home(){const [selected,setSelected]=useState(null);return <>
+<header className="header"><div className="headerInner"><div className="identity"><div className="identityMark">د</div><div><div className="identityName">بوابة الخدمات الرقمية</div><div className="identityEn">Digital Services Demo</div></div></div><span className="headerTag">خدمات رقمية</span></div></header>
+<main><div className="hero"><div className="demoNotice">نسخة تجريبية مستقلة — ليست موقعًا رسميًا لأي بنك</div><h1>مرحبًا بكم في بوابة الخدمات الرقمية</h1><p>الرجاء الاختيار من الخدمات التعريفية المقدمة أدناه</p></div>
+<section className="cards" aria-label="قائمة الخدمات">{services.map((service,index)=><button className="service" key={service.title} type="button" onClick={()=>setSelected(index)}><service.icon className="serviceIcon" size={31} strokeWidth={2.7}/><div className="serviceText"><h2>{service.title}</h2><p>{service.desc}</p></div></button>)}</section>
+<section className="contact"><p>للتواصل معنا، يرجى استخدام الرقم التالي</p><a href="tel:+23585550935" dir="ltr">+235 85550935</a></section>
+<footer>واجهة عرض تجريبية — لا تجمع كلمات مرور أو بيانات بنكية أو رموز تحقق</footer></main>
+{selected!==null && <div className="overlay" onClick={()=>setSelected(null)}><div className="modal" role="dialog" aria-modal="true" aria-label={services[selected].title} onClick={e=>e.stopPropagation()}><button className="close" onClick={()=>setSelected(null)} aria-label="إغلاق"><X size={21}/></button><h2>{services[selected].title}</h2><p>{services[selected].desc}</p><p className="disclaimer">هذه بطاقة تعريفية ضمن نموذج تجريبي. لا توجد خدمة مصرفية فعلية أو نموذج لإدخال بيانات العملاء.</p><button className="back" onClick={()=>setSelected(null)}><ArrowRight size={18}/> العودة للخدمات</button></div></div>}
+</>}
